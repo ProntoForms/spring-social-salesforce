@@ -70,7 +70,7 @@ public class SObjectSummaryMixin {
     @JsonProperty("retriveable")
     boolean retrieveable;
 
-    @JsonProperty("endeletable")
+    @JsonProperty("undeletable")
     boolean undeletable;
 
     @JsonProperty("triggerable")
