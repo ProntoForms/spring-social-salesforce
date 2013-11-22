@@ -48,8 +48,8 @@
     </dependencies>
 
 	<scm>
-		<connection>scm:git:ssh://git@github.com:ProntoForms/spring-social-salesforce.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com:ProntoForms/spring-social-salesforce.git</developerConnection>
+		<connection>scm:git:ssh://git@github.com/ProntoForms/spring-social-salesforce.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/ProntoForms/spring-social-salesforce.git</developerConnection>
 		<url>https://github.com/ProntoForms/spring-social-salesforce</url>
 	</scm>
 
