@@ -1,4 +1,4 @@
-package com.truecontext.prontoforms.pes.app.impl.mediators.salesforce.connect;
+package org.springframework.social.salesforce.connect;
 
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Template;
