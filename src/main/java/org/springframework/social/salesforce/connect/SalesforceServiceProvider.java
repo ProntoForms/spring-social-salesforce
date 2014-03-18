@@ -10,12 +10,14 @@ import org.springframework.social.salesforce.api.impl.SalesforceTemplate;
  * @author Umut Utkan
  */
 public class SalesforceServiceProvider extends AbstractOAuth2ServiceProvider<Salesforce> {
-	
-	/**
-	*usual values for authorizeUrl are "https://login.salesforce.com/services/oauth2/authorize" or "https://test.salesforce.com/services/oauth2/authorize"
-	*usual values for tokenUrl are "https://login.salesforce.com/services/oauth2/token" or "https://test.salesforce.com/services/oauth2/token"
-	*/
-	public SalesforceServiceProvider(String clientId, String clientSecret, String authorizeUrl, String tokenUrl) {
+
+    public SalesforceServiceProvider(String clientId, String clientSecret) {
+        this(clientId, clientSecret,
+                "https://login.salesforce.com/services/oauth2/authorize",
+                "https://login.salesforce.com/services/oauth2/token");
+    }
+
+    public SalesforceServiceProvider(String clientId, String clientSecret, String authorizeUrl, String tokenUrl) {
         super(new SalesforceOAuth2Template(clientId, clientSecret, authorizeUrl, tokenUrl));
     }
 
