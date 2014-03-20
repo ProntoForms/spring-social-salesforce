@@ -26,6 +26,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     private static final String INSTANCE_URL = "https://na1.salesforce.com";
 
     private String instanceUrl;
+    private String version = "23.0";
 
     private ObjectMapper objectMapper;
 
@@ -131,7 +132,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 
     @Override
     public String getBaseUrl() {
-        return (this.instanceUrl == null ? INSTANCE_URL : this.instanceUrl) + "/services/data";
+        return (this.instanceUrl == null ? INSTANCE_URL : this.instanceUrl) + "/services/data/" + version;
     }
 
     @Override
@@ -142,5 +143,11 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     public void setInstanceUrl(String instanceUrl) {
         this.instanceUrl = instanceUrl;
     }
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+    
+    
 
 }

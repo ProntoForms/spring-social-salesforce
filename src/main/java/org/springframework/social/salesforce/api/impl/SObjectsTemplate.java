@@ -38,27 +38,27 @@ public class SObjectsTemplate extends AbstractSalesForceOperations<Salesforce> i
     @Override
     public List<Map> getSObjects() {
         requireAuthorization();
-        JsonNode dataNode = restTemplate.getForObject(api.getBaseUrl() + "/v23.0/sobjects", JsonNode.class);
+        JsonNode dataNode = restTemplate.getForObject(api.getBaseUrl() + "/sobjects", JsonNode.class);
         return api.readList(dataNode.get("sobjects"), Map.class);
     }
 
     @Override
     public SObjectSummary getSObject(String name) {
         requireAuthorization();
-        JsonNode node = restTemplate.getForObject(api.getBaseUrl() + "/v23.0/sobjects/{name}", JsonNode.class, name);
+        JsonNode node = restTemplate.getForObject(api.getBaseUrl() + "/sobjects/{name}", JsonNode.class, name);
         return api.readObject(node.get("objectDescribe"), SObjectSummary.class);
     }
 
     @Override
     public SObjectDetail describeSObject(String name) {
         requireAuthorization();
-        return restTemplate.getForObject(api.getBaseUrl() + "/v23.0/sobjects/{name}/describe", SObjectDetail.class, name);
+        return restTemplate.getForObject(api.getBaseUrl() + "/sobjects/{name}/describe", SObjectDetail.class, name);
     }
 
     @Override
     public Map getRow(String name, String id, String... fields) {
         requireAuthorization();
-        URIBuilder builder = URIBuilder.fromUri(api.getBaseUrl() + "/v23.0/sobjects/" + name + "/" + id);
+        URIBuilder builder = URIBuilder.fromUri(api.getBaseUrl() + "/sobjects/" + name + "/" + id);
         if (fields.length > 0) {
             builder.queryParam("fields", StringUtils.arrayToCommaDelimitedString(fields));
         }
@@ -68,7 +68,7 @@ public class SObjectsTemplate extends AbstractSalesForceOperations<Salesforce> i
     @Override
     public InputStream getBlob(String name, String id, String field) {
         requireAuthorization();
-        return restTemplate.execute(api.getBaseUrl() + "/v23.0/sobjects/{name}/{id}/{field}",
+        return restTemplate.execute(api.getBaseUrl() + "/sobjects/{name}/{id}/{field}",
                 HttpMethod.GET, null, new ResponseExtractor<InputStream>() {
             @Override
             public InputStream extractData(ClientHttpResponse response) throws IOException {
@@ -84,7 +84,7 @@ public class SObjectsTemplate extends AbstractSalesForceOperations<Salesforce> i
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Map> entity = new HttpEntity<Map>(fields, headers);
-        return restTemplate.postForObject(api.getBaseUrl() + "/v23.0/sobjects/{name}", entity, Map.class, name);
+        return restTemplate.postForObject(api.getBaseUrl() + "/sobjects/{name}", entity, Map.class, name);
     }
 
 }
