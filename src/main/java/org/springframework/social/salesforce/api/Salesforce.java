@@ -32,4 +32,6 @@ public interface Salesforce extends ApiBinding {
 
     public String getInstanceUrl();
 
+	public void setVersion(String version);
+
 }

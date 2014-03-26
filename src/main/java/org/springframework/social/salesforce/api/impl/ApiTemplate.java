@@ -28,7 +28,7 @@ public class ApiTemplate extends AbstractSalesForceOperations<Salesforce> implem
 
 
     public List<ApiVersion> getVersions() {
-        URI uri = URIBuilder.fromUri(api.getBaseUrl()).build();
+        URI uri = URIBuilder.fromUri(api.getInstanceUrl() + "/services/data/").build();
         JsonNode dataNode = restTemplate.getForObject(uri, JsonNode.class);
         return api.readList(dataNode, ApiVersion.class);
     }

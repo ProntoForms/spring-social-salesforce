@@ -132,7 +132,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 
     @Override
     public String getBaseUrl() {
-        return (this.instanceUrl == null ? INSTANCE_URL : this.instanceUrl) + "/services/data/" + version;
+        return (this.instanceUrl == null ? INSTANCE_URL : this.instanceUrl) + "/services/data/v" + version;
     }
 
     @Override
@@ -143,7 +143,8 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     public void setInstanceUrl(String instanceUrl) {
         this.instanceUrl = instanceUrl;
     }
-
+    
+    @Override
 	public void setVersion(String version) {
 		this.version = version;
 	}
