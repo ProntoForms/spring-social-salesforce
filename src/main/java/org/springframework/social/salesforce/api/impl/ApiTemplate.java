@@ -28,7 +28,7 @@ public class ApiTemplate extends AbstractSalesForceOperations<Salesforce> implem
 
 
     public List<ApiVersion> getVersions() {
-        URI uri = URIBuilder.fromUri(api.getInstanceUrl() + "/services/data/").build();
+        URI uri = URIBuilder.fromUri(api.getInstanceUrl() + "/services/data").build();
         JsonNode dataNode = restTemplate.getForObject(uri, JsonNode.class);
         return api.readList(dataNode, ApiVersion.class);
     }
@@ -36,7 +36,7 @@ public class ApiTemplate extends AbstractSalesForceOperations<Salesforce> implem
     @SuppressWarnings("unchecked")
     public Map<String, String> getServices(String version) {
         requireAuthorization();
-        return restTemplate.getForObject(api.getBaseUrl() + "/v{version}", Map.class, version);
+        return restTemplate.getForObject(api.getInstanceUrl() + "/services/data" + "/v{version}", Map.class, version);
     }
 
 }
