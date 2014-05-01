@@ -42,6 +42,8 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 
     private SObjectOperations sObjectsOperations;
 
+    private AnalyticsOperations analyticsOperations;
+
 
     public SalesforceTemplate() {
         initialize();
@@ -88,6 +90,11 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
         return sObjectsOperations;
     }
 
+    @Override
+    public AnalyticsOperations analyticsOperations() {
+        return analyticsOperations;
+    }
+
     private void initialize() {
         apiOperations = new ApiTemplate(this, getRestTemplate());
         chatterOperations = new ChatterTemplate(this, getRestTemplate());
@@ -95,6 +102,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
         recentOperations = new RecentTemplate(this, getRestTemplate());
         searchOperations = new SearchTemplate(this, getRestTemplate());
         sObjectsOperations = new SObjectsTemplate(this, getRestTemplate());
+        analyticsOperations = new AnalyticsTemplate(this, getRestTemplate());
     }
 
     @Override

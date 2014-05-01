@@ -24,6 +24,8 @@ public interface Salesforce extends ApiBinding {
 
     public SObjectOperations sObjectsOperations();
 
+    public AnalyticsOperations analyticsOperations();
+
     public <T> List<T> readList(JsonNode jsonNode, Class<T> type);
 
     public <T> T readObject(JsonNode jsonNode, Class<T> type);
