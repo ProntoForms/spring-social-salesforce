@@ -58,8 +58,7 @@ public class SObjectsTemplate extends AbstractSalesForceOperations<Salesforce> i
         return restTemplate.getForObject(api.getBaseUrl() + "/sobjects/{name}/describe", SObjectDetail.class, name);
     }
     
-    public Map<?, ?> getRow(String url, Set<String> keySet)
-    {
+    public Map<?, ?> getRow(String url, Set<String> keySet) {
     	requireAuthorization();
         URIBuilder builder = URIBuilder.fromUri(api.getServerInstanceUrl() + url);
         if (keySet.size() > 0) {
@@ -112,8 +111,7 @@ public class SObjectsTemplate extends AbstractSalesForceOperations<Salesforce> i
             return updateOpperation(api.getInstanceUrl()+objectUrl+"?_HttpMethod=PATCH", fields);       
     }
         
-        private Map<String, Object> updateOpperation(String objectUrl, Map<String, Object> fields)
-        {
+        private Map<String, Object> updateOpperation(String objectUrl, Map<String, Object> fields) {
         	requireAuthorization();
         	HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);

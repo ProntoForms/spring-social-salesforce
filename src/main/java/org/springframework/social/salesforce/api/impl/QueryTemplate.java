@@ -41,30 +41,28 @@ public class QueryTemplate extends AbstractSalesForceOperations<Salesforce> impl
         }
     }
     
-    public String simpleQueryBuilder(String type, Map<String, Object> fields, String SOQLOpperator)
-    {
-    	if (fields.isEmpty())
+    public String simpleQueryBuilder(String type, Map<String, Object> fields, String SOQLOpperator) {
+    	if (fields==null || fields.isEmpty())
     		return null;
     	if (SOQLOpperator == null)
     		SOQLOpperator= "AND";
     	
-    	String query = "Select CreatedDate, ";
+    	String query = "Select CreatedDate";
     	for (String value : fields.keySet())
     	{
     		if (fields.get(value) !=null)
-    			query = query + value+", ";
+    			query += ", "+ value;
     	}
-    	query = (String) query.subSequence(0, query.length()-2);
     	query = query + " from " + type + " where ";
     	
     	for (String value : fields.keySet())
     	{
     		if (fields.get(value) !=null)
-    			query = query + value +" = '" + (String) fields.get(value) + "' "+ SOQLOpperator+" ";
+    			query += value +" = '" + (String) fields.get(value) + "' "+ SOQLOpperator+" ";
     	}
     	
     	query = query.substring(0, query.length()-4);
-    	query = query + " order by CreatedDate DESC";
+    	query += " order by CreatedDate DESC";
     	return query;
     }
 
