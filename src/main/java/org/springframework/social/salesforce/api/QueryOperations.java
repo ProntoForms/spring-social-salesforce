@@ -13,7 +13,7 @@ public interface QueryOperations {
 
     QueryResult nextPage(String urlOrToken);
     
-    String simpleQueryBuider(String type, Map<String, Object> query, String andOr);
+    String simpleQueryBuilder(String type, Map<String, Object> query, String SOQLOpperator);
 
 
 }

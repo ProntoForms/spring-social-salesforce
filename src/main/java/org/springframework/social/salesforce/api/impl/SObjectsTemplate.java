@@ -103,32 +103,22 @@ public class SObjectsTemplate extends AbstractSalesForceOperations<Salesforce> i
     @SuppressWarnings("unchecked")
 	@Override
     public Map<String, Object> update(String sObjectName, String sObjectId, Map<String, Object> fields) {
-        requireAuthorization();
-        
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Map<String, Object>> entity = new HttpEntity<Map<String,Object>>(fields, headers);
-        Map<String, Object> result =  restTemplate.postForObject(api.getBaseUrl() + "/sobjects/"+sObjectName+"/"+sObjectId+"?_HttpMethod=PATCH", 
-                entity, Map.class,  sObjectName, sObjectId);
-        // SF returns an empty body on success, so mimic the same update you'd get from a create success for consistency
-        if (result == null) {
-            result = new HashMap<String, Object>();
-            result.put("id", sObjectId);
-            result.put("success", true);
-            result.put("errors", new ArrayList<String>());
-        }
-        return result;
+        return updateOpperation(api.getBaseUrl() + "/sobjects/"+sObjectName+"/"+sObjectId+"?_HttpMethod=PATCH", fields);
     }
         
         @SuppressWarnings("unchecked")
 		@Override
         public Map<String, Object> update(String objectUrl, Map<String, Object> fields) {
-            requireAuthorization();
-            
-            HttpHeaders headers = new HttpHeaders();
+            return updateOpperation(api.getInstanceUrl()+objectUrl+"?_HttpMethod=PATCH", fields);       
+    }
+        
+        private Map<String, Object> updateOpperation(String objectUrl, Map<String, Object> fields)
+        {
+        	requireAuthorization();
+        	HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<Map<String, Object>> entity = new HttpEntity<Map<String,Object>>(fields, headers);
-            Map<String, Object> result =  restTemplate.postForObject(api.getInstanceUrl()+objectUrl+"?_HttpMethod=PATCH", 
+            Map<String, Object> result =  restTemplate.postForObject(objectUrl, 
                     entity, Map.class);
             // SF returns an empty body on success, so mimic the same update you'd get from a create success for consistency
             if (result == null) {
@@ -138,6 +128,6 @@ public class SObjectsTemplate extends AbstractSalesForceOperations<Salesforce> i
                 result.put("errors", new ArrayList<String>());
             }
             return result;
-    }
+        }
 
 }

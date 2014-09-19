@@ -41,12 +41,12 @@ public class QueryTemplate extends AbstractSalesForceOperations<Salesforce> impl
         }
     }
     
-    public String simpleQueryBuider(String type, Map<String, Object> fields, String andOr)
+    public String simpleQueryBuilder(String type, Map<String, Object> fields, String SOQLOpperator)
     {
     	if (fields.isEmpty())
     		return null;
-    	if (andOr == null)
-    		andOr= "AND";
+    	if (SOQLOpperator == null)
+    		SOQLOpperator= "AND";
     	
     	String query = "Select CreatedDate, ";
     	for (String value : fields.keySet())
@@ -60,7 +60,7 @@ public class QueryTemplate extends AbstractSalesForceOperations<Salesforce> impl
     	for (String value : fields.keySet())
     	{
     		if (fields.get(value) !=null)
-    			query = query + value +" = '" + (String) fields.get(value) + "' "+ andOr+" ";
+    			query = query + value +" = '" + (String) fields.get(value) + "' "+ SOQLOpperator+" ";
     	}
     	
     	query = query.substring(0, query.length()-4);
