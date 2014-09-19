@@ -31,6 +31,8 @@ public interface Salesforce extends ApiBinding {
     public <T> T readObject(JsonNode jsonNode, Class<T> type);
 
     public String getBaseUrl();
+    
+    public String getServerInstanceUrl();
 
     public String getInstanceUrl();
 

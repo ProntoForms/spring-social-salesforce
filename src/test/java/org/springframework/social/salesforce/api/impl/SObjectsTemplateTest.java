@@ -85,7 +85,7 @@ public class SObjectsTemplateTest extends AbstractSalesforceTest {
         mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v23.0/sobjects/Lead"))
             .andExpect(method(POST))
             .andRespond(withResponse(new ByteArrayResource("{\"Id\" : \"1234\"}".getBytes("UTF-8")), responseHeaders));
-        Map<String, String> fields = new HashMap<String, String>();
+        Map<String, Object> fields = new HashMap<String, Object>();
         fields.put("LastName", "Doe");
         fields.put("FirstName", "John");
         fields.put("Company", "Acme, Inc.");

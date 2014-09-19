@@ -3,6 +3,7 @@ package org.springframework.social.salesforce.api;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Defines operations for interacting with the sObjects API.
@@ -18,9 +19,16 @@ public interface SObjectOperations {
     public SObjectDetail describeSObject(String name);
 
     public Map getRow(String name, String id, String... fields);
+    
+    public Map<?, ?> getRow(String url, Set<String> keySet);
 
     public InputStream getBlob(String name, String id, String field);
 
-    Map<?, ?> create(String name, Map<String, String> fields);
+    public Map<?, ?> create(String name, Map<String, Object> fields);
+    
+    public Map<String, Object> update(String sObjectName, String sObjectId,
+			Map<String, Object> fields);
+
+	public Map<String, Object> update(String objectUrl, Map<String, Object> fields);
 
 }

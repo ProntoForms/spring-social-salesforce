@@ -1,5 +1,7 @@
 package org.springframework.social.salesforce.api;
 
+import java.util.Map;
+
 /**
  * Defines operations for executing SOQL queries.
  *
@@ -10,5 +12,8 @@ public interface QueryOperations {
     QueryResult query(String query);
 
     QueryResult nextPage(String urlOrToken);
+    
+    String simpleQueryBuider(String type, Map<String, Object> query, String andOr);
+
 
 }

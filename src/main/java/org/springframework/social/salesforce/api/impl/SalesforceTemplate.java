@@ -142,6 +142,10 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     public String getBaseUrl() {
         return (this.instanceUrl == null ? INSTANCE_URL : this.instanceUrl) + "/services/data/v" + version;
     }
+    
+    public String getServerInstanceUrl() {
+        return (this.instanceUrl == null ? INSTANCE_URL : this.instanceUrl);
+    }
 
     @Override
     public String getInstanceUrl() {
