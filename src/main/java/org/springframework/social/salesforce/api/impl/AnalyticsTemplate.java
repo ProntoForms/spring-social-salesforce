@@ -1,12 +1,13 @@
 package org.springframework.social.salesforce.api.impl;
 
-import org.codehaus.jackson.JsonNode;
+import java.net.URI;
+
 import org.springframework.social.salesforce.api.AnalyticsOperations;
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.support.URIBuilder;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * Default implementation of AnalyticsTemplate.

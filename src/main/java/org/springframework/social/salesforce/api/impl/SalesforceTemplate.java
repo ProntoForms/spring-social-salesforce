@@ -1,19 +1,27 @@
 package org.springframework.social.salesforce.api.impl;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.type.CollectionType;
-import org.codehaus.jackson.map.type.TypeFactory;
-import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import java.io.IOException;
+import java.util.List;
+
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.UncategorizedApiException;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.OAuth2Version;
-import org.springframework.social.salesforce.api.*;
+import org.springframework.social.salesforce.api.AnalyticsOperations;
+import org.springframework.social.salesforce.api.ApiOperations;
+import org.springframework.social.salesforce.api.ChatterOperations;
+import org.springframework.social.salesforce.api.QueryOperations;
+import org.springframework.social.salesforce.api.RecentOperations;
+import org.springframework.social.salesforce.api.SObjectOperations;
+import org.springframework.social.salesforce.api.Salesforce;
+import org.springframework.social.salesforce.api.SearchOperations;
 import org.springframework.social.salesforce.api.impl.json.SalesforceModule;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.util.List;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 /**
  * Default implementation of Salesforce. This is the main entry point
@@ -106,8 +114,8 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     }
 
     @Override
-    protected MappingJacksonHttpMessageConverter getJsonMessageConverter() {
-        MappingJacksonHttpMessageConverter converter = super.getJsonMessageConverter();
+    protected MappingJackson2HttpMessageConverter getJsonMessageConverter() {
+    	MappingJackson2HttpMessageConverter converter = super.getJsonMessageConverter();
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new SalesforceModule());
         converter.setObjectMapper(objectMapper);
@@ -123,18 +131,18 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     public <T> List<T> readList(JsonNode jsonNode, Class<T> type) {
         try {
             CollectionType listType = TypeFactory.defaultInstance().constructCollectionType(List.class, type);
-            return (List<T>) objectMapper.readValue(jsonNode, listType);
+            return (List<T>) objectMapper.reader(listType).readValue(jsonNode);
         } catch (IOException e) {
-            throw new UncategorizedApiException("Error deserializing data from Salesforce: " + e.getMessage(), e);
+            throw new UncategorizedApiException("salesforce", "Error deserializing data from Salesforce: " + e.getMessage(), e);
         }
     }
 
     @Override
     public <T> T readObject(JsonNode jsonNode, Class<T> type) {
         try {
-            return (T) objectMapper.readValue(jsonNode, type);
+            return (T) objectMapper.reader(type).readValue(jsonNode);
         } catch (IOException e) {
-            throw new UncategorizedApiException("Error deserializing data from Salesforce: " + e.getMessage(), e);
+            throw new UncategorizedApiException("salesforce", "Error deserializing data from Salesforce: " + e.getMessage(), e);
         }
     }
 
